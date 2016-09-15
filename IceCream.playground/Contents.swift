@@ -43,13 +43,15 @@ var favoriteFlavorsOfIceCream:[String:String] = [
  
  Good! Below, the function `namesForIceCreamFlavor(_:)` has been declared for you, but has no useful body. Fill in the body of `namesForIceCreamFlavor(_:)` to return the name of everyone who likes that particular flavor of ice cream. */
 func namesForIceCreamFlavor(flavor: String) -> [String] {
-    var namesWithFavoriteFlavor:[String] = []
+    var names:[String] = []
     for (name, iceCream) in favoriteFlavorsOfIceCream {
-        if iceCream == flavor {
-            namesWithFavoriteFlavor.append(name)
+        if flavor == iceCream {
+            names.append(name)
         }
+        
+        
     }
-    return namesWithFavoriteFlavor
+    return names
 }
 
  
@@ -69,15 +71,16 @@ assert(names == [], "\(names)")
  
  Mark also needs a function that returns the _number_ of people who like a certain type of ice cream. Finish implementing `countForIceCreamFlavor(_:)` below to return the number of people who like a particular flavor of ice cream. */
 func countForIceCreamFlavor(flavor: String) -> Int {
-    var peopleWithTypeOfIceCream:[String] = []
+    var names:[String] = []
     for (name, iceCream) in favoriteFlavorsOfIceCream {
         if iceCream == flavor {
-            peopleWithTypeOfIceCream.append(name)
+            names.append(name)
         }
     }
-     return peopleWithTypeOfIceCream.count
+     return names.count
   
 }
+
 
 /*: directions5
  
@@ -94,18 +97,17 @@ assert(count == 0, "\(count)")
 /*: directions6
  
  Good! Mark also needs a function to find out who likes a particular flavor of ice cream, so he doesn't make mistakes when he's serving ice cream at the party. Complete the function `iceCreamForPerson(_:)` below to return a particular attendee's favorite flavor of ice cream. If a given person doesn't have a favorite flavor of ice cream (or doesn't even exist), return `nil`. */
-func iceCreamForPerson(name: String) -> String? {
-    var iceCreamFlavor:[String] = []
-    for (person, flavor) in favoriteFlavorsOfIceCream {
+func iceCreamForPerson(name:String)->String?{
+    for (person, iceCream) in favoriteFlavorsOfIceCream {
         if person == name {
-            iceCreamFlavor.append(flavor)
-            for iceCream in iceCreamFlavor{
-                return iceCream
-            }
+            return iceCream
         }
+            
+        
     }
     return nil
 }
+
 
 /*: directions7
  
@@ -135,17 +137,20 @@ if let iceCream = iceCream {
 /*: directions8
  
  Mark made it to the store, but Tim decided that he doesn't want Natural Vanilla. He wants Pistachio instead. He texted Mark to change his mind. Mark should've left his phone at home! Now he needs you write a function, `replaceFlavor(_:forPerson:)`, that will change the given person's preferred ice cream flavor to a new one. Return `true` if the person's preferred flavor was changed, or `false` if it was not. If the person has not even RSVP'ed to the party, do nothing but return `false`. Implement the body of this function below. */
-func replaceFlavor(flavor: String, forPerson person: String) -> Bool {
+func replaceFlavor(flavor:String, forPerson person:String)->Bool {
     for (name, iceCream) in favoriteFlavorsOfIceCream {
-        if name == person && iceCream != flavor {
+        if iceCream == flavor && name == person {
+            return false
+        } else if iceCream != flavor && name == person {
             favoriteFlavorsOfIceCream[name] = flavor
             return true
-        } else if name == person && iceCream == flavor {
-            return false
         }
     }
-        return false
-    }
+    return false
+}
+
+
+
 
 
 
@@ -185,14 +190,14 @@ if let iceCream = iceCream {
 /*: directions9
  
  Uh oh! Deniz just texted Mark to let her know she can't come to the party. Finish the function `removePerson(_:)` below so that Deniz is removed from the guest list and Mark doesn't accidentally buy ice cream for her. The function should return `true` if the person who is being removed had previously been attending the party, and `false` if they were never attending in the first place. */
-func removePerson(name: String) -> Bool {
-    if favoriteFlavorsOfIceCream.keys.contains(name) {
-        favoriteFlavorsOfIceCream.removeValueForKey(name)
-        return true
-        
-    } else {
-        return false}
+func removePerson(name:String)->Bool {
+    if favoriteFlavorsOfIceCream.keys.contains(name){
+    favoriteFlavorsOfIceCream.removeValueForKey(name)
     
+    return true
+    } else {
+        return false
+    }
 }
 
 /*: directions10
@@ -237,7 +242,8 @@ func addPerson(name: String, withFlavor flavor: String) -> Bool {
     }
     return false
     }
-    
+
+
 
 /*: directions14
  
